@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/04 21:45:50 by amben-ha          #+#    #+#             */
+/*   Updated: 2023/12/04 21:50:52 by amben-ha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../builtins.h"
 
 void free_all(char *name, char *value, char *signed_name)
@@ -179,7 +191,7 @@ char **ft_export(char *command, char **env)
 			else if (sign == 2)
 				new_env[i] = ft_strjoin(signed_name, value);
 			else
-				new_env[i] = command;
+				new_env[i] = ft_strdup(command);
 			new_env[i + 1] = NULL;
 		}
 		else
@@ -189,23 +201,4 @@ char **ft_export(char *command, char **env)
 		printf("export: '%s': not a valid identifier\n", name);
 	free_all(name, value, signed_name);
 	return (new_env);
-}
-
-int main(int argc, char **argv, char **env)
-{
-	int i;
-	char **new_testenv;
-
-	i = 0;
-	(void)argv;
-	(void)argc;
-	new_testenv = ft_export(NULL, env);
-	while (new_testenv[i])
-	{
-		printf("%s\n", new_testenv[i]);
-		free(new_testenv[i]);
-		i++;
-	}
-	free(new_testenv);
-	return (0);
 }
