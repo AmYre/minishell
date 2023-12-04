@@ -41,6 +41,8 @@ char *get_name(char *str)
 		return (str);
 	while (str[i] != '=' && str[i])
 		i++;
+	if (str[i] != '=')
+		return (NULL);
 	if (str[i-1] == '+')
 		i--;
 	name = malloc(sizeof(char) * (i + 1));
@@ -69,7 +71,11 @@ char *get_value(char *str)
 		i++;
 	if (str[i] == '=')
 		i++;
-	value = malloc(sizeof(char) * (ft_strlen(str) - i + 1));
+	j = i;
+	while (str[j])
+		j++;
+	value = malloc(sizeof(char) * (j + 1));
+	j = 0;
 	while (str[i])
 	{
 		value[j] = str[i];
@@ -114,11 +120,27 @@ char **ft_export(char *command, char **env)
 	char	*value;
 	char	*signed_name;
 	char	**new_env;
+	char	*exec_env[2];
 
 	i = 0;
 	j = 0;
+	exec_env[0] = "env";
+	exec_env[1] = NULL;
+	if (!command)
+	{
+		while (env[i])
+		{
+			printf("export %s\n", env[i]);
+			i++;
+		}
+		return (env);
+	}
 	name = get_name(command);
+	if (!name)
+		return (env);
 	value = get_value(command);
+	if (!value)
+		value = "";
 	signed_name = ft_strjoin(name, "=");
 	sign = ft_strchr_sign(command, '=');
 	found_match = check_match(signed_name, env);
@@ -130,7 +152,7 @@ char **ft_export(char *command, char **env)
 	{
 		while (env[i])
 		{
-			if (found_match)
+			if (ft_strncmp(env[i], signed_name, ft_strlen(signed_name)) == 0)
 			{
 				if (sign == 2)
 					new_env[i] = ft_strjoin(env[i], value);
@@ -154,10 +176,14 @@ char **ft_export(char *command, char **env)
 		{
 			if (!sign)
 				new_env[i] = signed_name;
+			else if (sign == 2)
+				new_env[i] = ft_strjoin(signed_name, value);
 			else
 				new_env[i] = command;
+			new_env[i + 1] = NULL;
 		}
-		new_env[i + 1] = NULL;
+		else
+			new_env[i] = NULL;
 	}
 	else
 		printf("export: '%s': not a valid identifier\n", name);
@@ -173,7 +199,7 @@ int main(int argc, char **argv, char **env)
 	i = 0;
 	(void)argv;
 	(void)argc;
-	new_testenv = ft_export("USER", env);
+	new_testenv = ft_export(NULL, env);
 	while (new_testenv[i])
 	{
 		printf("%s\n", new_testenv[i]);
@@ -183,7 +209,3 @@ int main(int argc, char **argv, char **env)
 	free(new_testenv);
 	return (0);
 }
-
-//When USER tout court, sans assignation, cela ne change pas la value de USER
-//When amir tout court, sans assignation, cela ne créer rien
-//Quand USER=, cela met USER= dans l'env, supprime s'il y avait une valeure
