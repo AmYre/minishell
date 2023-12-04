@@ -1,8 +1,15 @@
 #include "../builtins.h"
 
-int	ft_isexport(char *str)
+void free_all(char *name, char *value, char *signed_name)
 {
-	int i;
+	free(name);
+	free(value);
+	free(signed_name);
+}
+
+int	is_export(char *str)
+{
+	int	i;
 
 	i = 0;
 	if (!str)
@@ -30,8 +37,12 @@ char *get_name(char *str)
 
 	i = 0;
 	j = 0;
+	if (str[0] == '=')
+		return (str);
 	while (str[i] != '=' && str[i])
 		i++;
+	if (str[i-1] == '+')
+		i--;
 	name = malloc(sizeof(char) * (i + 1));
 	while (j < i)
 	{
@@ -42,69 +53,137 @@ char *get_name(char *str)
 	return (name);
 }
 
-char **ft_export(char *command, char **env)
+char *get_value(char *str)
 {
 	int i;
-	char *name;
+	int j;
 	int sign;
+	char *value;
 
 	i = 0;
+	j = 0;
+	sign = 0;
+	if (str[0] == '=')
+		return (str);
+	while (str[i] != '=' && str[i])
+		i++;
+	if (str[i] == '=')
+		i++;
+	value = malloc(sizeof(char) * (ft_strlen(str) - i + 1));
+	while (str[i])
+	{
+		value[j] = str[i];
+		i++;
+		j++;
+	}
+	value[j] = '\0';
+	return (value);
+}
+
+int ft_strlen_2d(char **str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+int check_match(char *signed_name, char **env)
+{
+	int i;
+
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], signed_name, ft_strlen(signed_name)) == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+char **ft_export(char *command, char **env)
+{
+	int		i;
+	int		j;
+	int		sign;
+	int		found_match;
+	char	*name;
+	char	*value;
+	char	*signed_name;
+	char	**new_env;
+
+	i = 0;
+	j = 0;
 	name = get_name(command);
-	sign = ft_strchr(command, '=');
-	if (ft_isexport(name))
+	value = get_value(command);
+	signed_name = ft_strjoin(name, "=");
+	sign = ft_strchr_sign(command, '=');
+	found_match = check_match(signed_name, env);
+	if (found_match)
+		new_env = malloc(sizeof(char *) * (ft_strlen_2d(env) + 1));
+	else
+		new_env = malloc(sizeof(char *) * (ft_strlen_2d(env) + 2));
+	if (is_export(name))
 	{
 		while (env[i])
 		{
-			if (ft_strncmp(env[i], name, ft_strlen(name)) == 0)
+			if (found_match)
 			{
-				free(env[i]);
-				if (!sign)
-				{
-					env[i] = ft_strjoin(name, "=");
-					return (env);
-				}
+				if (sign == 2)
+					new_env[i] = ft_strjoin(env[i], value);
 				else
+					new_env[i] = ft_strdup(command);
+			}
+			else
+			{
+				new_env[i] = malloc(sizeof(char) * (ft_strlen(env[i]) + 1));
+				int j = 0;
+				while (env[i][j])
 				{
-					env[i] = command;
-					return (env);
+					new_env[i][j] = env[i][j];
+					j++;
 				}
-				free(name);
+				new_env[i][j] = '\0';
 			}
 			i++;
 		}
-		if (!sign)
+		if (!found_match)
 		{
-			env[i] = ft_strjoin(name, "=");
-			env[i + 1] = NULL;
+			if (!sign)
+				new_env[i] = signed_name;
+			else
+				new_env[i] = command;
 		}
-		else
-		{
-			env[i] = command;
-			env[i + 1] = NULL;
-		}
-		free(name);
+		new_env[i + 1] = NULL;
 	}
 	else
-	{
 		printf("export: '%s': not a valid identifier\n", name);
-		free(name);
-	}
-	return (env);
+	free_all(name, value, signed_name);
+	return (new_env);
 }
 
 int main(int argc, char **argv, char **env)
 {
 	int i;
-	char **new_env;
+	char **new_testenv;
 
 	i = 0;
 	(void)argv;
 	(void)argc;
-	new_env = ft_export("TEST=amir", env);
-	while (new_env[i])
+	new_testenv = ft_export("USER", env);
+	while (new_testenv[i])
 	{
-		printf("%s\n", new_env[i]);
+		printf("%s\n", new_testenv[i]);
+		free(new_testenv[i]);
 		i++;
 	}
+	free(new_testenv);
 	return (0);
 }
+
+//When USER tout court, sans assignation, cela ne change pas la value de USER
+//When amir tout court, sans assignation, cela ne créer rien
+//Quand USER=, cela met USER= dans l'env, supprime s'il y avait une valeure

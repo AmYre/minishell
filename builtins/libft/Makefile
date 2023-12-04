@@ -6,7 +6,7 @@
 #    By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/04 17:58:27 by amben-ha          #+#    #+#              #
-#    Updated: 2023/11/06 17:36:16 by amben-ha         ###   ########.fr        #
+#    Updated: 2023/12/03 21:25:42 by amben-ha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRCS		=	ft_atoi.c \
 				ft_strncmp.c \
 				ft_strjoin.c \
 				ft_strdup.c \
-				ft_strchr.c \
+				ft_strchr_sign.c \
 
 OBJS		= ${SRCS:.c=.o}
 NAME		= libft.a

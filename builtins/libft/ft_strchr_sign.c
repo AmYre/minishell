@@ -6,13 +6,13 @@
 /*   By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:20:01 by amben-ha          #+#    #+#             */
-/*   Updated: 2023/11/29 17:40:43 by amben-ha         ###   ########.fr       */
+/*   Updated: 2023/12/03 21:24:57 by amben-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strchr(const char *s, int c)
+int	ft_strchr_sign(const char *s, int c)
 {
 	char	*str;
 	int		i;
@@ -31,5 +31,7 @@ int	ft_strchr(const char *s, int c)
 			return (0);
 		i++;
 	}
+	if (i > 0 && str[i] == '=' && str[i - 1] == '+')
+		return (2);
 	return (1);
 }
