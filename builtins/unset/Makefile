@@ -6,11 +6,12 @@
 #    By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/08 17:31:31 by amben-ha          #+#    #+#              #
-#    Updated: 2023/11/29 18:38:05 by amben-ha         ###   ########.fr        #
+#    Updated: 2023/12/05 00:24:35 by amben-ha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		=	unset.c\
+				export.c\
 
 OBJS		= ${SRCS:.c=.o}
 NAME		= a.out

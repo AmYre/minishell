@@ -6,7 +6,7 @@
 /*   By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 19:19:21 by amben-ha          #+#    #+#             */
-/*   Updated: 2023/11/29 20:57:40 by amben-ha         ###   ########.fr       */
+/*   Updated: 2023/12/05 00:18:10 by amben-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@
 char	*get_name(char *str);
 int		is_export(char *str);
 char	**ft_export(char *command, char **env);
+char	**ft_unset(char *name, char **env);
 
 #endif
