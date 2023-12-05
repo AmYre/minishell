@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_arrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/08 18:43:55 by amben-ha          #+#    #+#             */
-/*   Updated: 2023/12/05 17:41:17 by amben-ha         ###   ########.fr       */
+/*   Created: 2023/12/05 17:40:10 by amben-ha          #+#    #+#             */
+/*   Updated: 2023/12/05 17:40:26 by amben-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strlen(const char *s)
+int	ft_arrlen(char **arr)
 {
-	int	i;
+	int i;
 
-	if (!s)
+	if (!arr)
 		return (0);
 	i = 0;
-	while (s[i])
+	while (arr[i])
 		i++;
 	return (i);
 }

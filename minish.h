@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/08 18:43:55 by amben-ha          #+#    #+#             */
-/*   Updated: 2023/12/05 17:41:17 by amben-ha         ###   ########.fr       */
+/*   Created: 2023/12/05 16:37:35 by amben-ha          #+#    #+#             */
+/*   Updated: 2023/12/05 16:39:10 by amben-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef MINISH_H
+# define MINISH_H
 
-int	ft_strlen(const char *s)
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/wait.h>
+# include <sys/types.h>
+# include <signal.h>
+# include <fcntl.h>
+
+typedef struct	s_env
 {
-	int	i;
+	char		*key;
+	char		*value;
+}				t_env;
 
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
+#endif
+

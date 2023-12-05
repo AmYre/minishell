@@ -5,37 +5,39 @@
 #                                                     +:+ +:+         +:+      #
 #    By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/04 17:58:27 by amben-ha          #+#    #+#              #
-#    Updated: 2023/12/05 17:41:39 by amben-ha         ###   ########.fr        #
+#    Created: 2023/10/08 17:31:31 by amben-ha          #+#    #+#              #
+#    Updated: 2023/12/05 18:22:47 by amben-ha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		=	ft_atoi.c \
-				ft_split.c \
-				ft_strlen.c \
-				ft_arrlen.c \
-				ft_strncmp.c \
-				ft_strjoin.c \
-				ft_strdup.c \
-				ft_strchr_sign.c \
+SRCS		=	main.c\
 
 OBJS		= ${SRCS:.c=.o}
-NAME		= libft.a
+NAME		= minish
 CC			= cc -Wall -Wextra -Werror
+
+INCLUDES = -I. -Ilibft
+
+LIBFT = libft/libft.a
 
 all: ${NAME}
 
-$(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) -o $(NAME) $(OBJS) $(LIBFT) -lreadline -lncurses
 
-%.o: %.c libft.h
-	$(CC) -I. -c $< -o $@
+$(LIBFT):
+	make -C libft
+
+%.o: %.c minish.h
+	$(CC) -o $@ -c $< $(INCLUDES)
 
 clean:
 	rm -f ${OBJS}
+	make -C libft clean
 
 fclean:		clean
-	rm -f ${NAME} ${OBJS_BONUS}
+	rm -f ${NAME}
+	make -C libft fclean
 
 re:			fclean all
 

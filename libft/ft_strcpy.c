@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/08 18:43:55 by amben-ha          #+#    #+#             */
-/*   Updated: 2023/12/05 17:41:17 by amben-ha         ###   ########.fr       */
+/*   Created: 2023/12/03 23:32:18 by amben-ha          #+#    #+#             */
+/*   Updated: 2023/12/03 23:33:45 by amben-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strlen(const char *s)
+char	*ft_strcpy(char *dest, const char *src)
 {
-	int	i;
+	int i;
 
-	if (!s)
-		return (0);
 	i = 0;
-	while (s[i])
+	if (!dest || !src)
+		return (NULL);
+	while (src[i])
+	{
+		dest[i] = (char)src[i];
 		i++;
-	return (i);
+	}
+	dest[i] = '\0';
+	return (dest);
 }

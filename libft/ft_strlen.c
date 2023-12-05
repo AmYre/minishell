@@ -6,15 +6,15 @@
 /*   By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:43:55 by amben-ha          #+#    #+#             */
-/*   Updated: 2023/12/05 17:41:17 by amben-ha         ###   ########.fr       */
+/*   Updated: 2023/11/05 23:32:31 by amben-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-	int	i;
+	size_t	i;
 
 	if (!s)
 		return (0);

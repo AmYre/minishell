@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/08 18:43:55 by amben-ha          #+#    #+#             */
-/*   Updated: 2023/12/05 17:41:17 by amben-ha         ###   ########.fr       */
+/*   Created: 2023/05/10 17:20:01 by amben-ha          #+#    #+#             */
+/*   Updated: 2023/12/03 21:24:57 by amben-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strlen(const char *s)
+int	ft_strchr_sign(const char *s, int c)
 {
-	int	i;
+	char	*str;
+	int		i;
 
 	if (!s)
 		return (0);
+	str = (char *)s;
 	i = 0;
-	while (s[i])
+	if (!str[0] && !c)
+		return (0);
+	if (!*str)
+		return (0);
+	while (str[i] != (unsigned char)c)
+	{
+		if (str[i] == '\0' && c != '\0')
+			return (0);
 		i++;
-	return (i);
+	}
+	if (i > 0 && str[i] == '=' && str[i - 1] == '+')
+		return (2);
+	return (1);
 }
