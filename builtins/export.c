@@ -6,11 +6,11 @@
 /*   By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 21:45:50 by amben-ha          #+#    #+#             */
-/*   Updated: 2023/12/05 00:11:33 by amben-ha         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:58:55 by amben-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../builtins.h"
+#include "builtins.h"
 
 void free_all(char *name, char *value, char *signed_name)
 {

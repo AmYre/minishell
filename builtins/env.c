@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/28 19:19:21 by amben-ha          #+#    #+#             */
-/*   Updated: 2023/12/06 17:56:31 by amben-ha         ###   ########.fr       */
+/*   Created: 2023/12/05 20:26:12 by amben-ha          #+#    #+#             */
+/*   Updated: 2023/12/06 17:58:46 by amben-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+# include "builtins.h"
 
-# include "libft/libft.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <string.h>
-# include <errno.h>
+void	ft_env(char **argv, char **env)
+{
+	int i;
 
-char	**ft_export(char *command, char **env);
-char	**ft_unset(char *name, char **env);
-void	ft_cd(char **args);
-void	ft_echo(char **args);
-void	ft_env(char **argv, char **env);
-void	ft_pwd(void);
-void	ft_exit(char **argv);
-
-#endif
+	i = 0;
+	if (argv[1])
+	{
+		printf("env: %s: No such file or directory\n", argv[1]);
+		return ;
+	}
+	while (env[i])
+	{
+		printf("%s\n", env[i]);
+		i++;
+	}
+}

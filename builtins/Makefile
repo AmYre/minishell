@@ -6,15 +6,22 @@
 #    By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/08 17:31:31 by amben-ha          #+#    #+#              #
-#    Updated: 2023/12/05 16:53:47 by amben-ha         ###   ########.fr        #
+#    Updated: 2023/12/06 18:04:21 by amben-ha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		=	echo.c\
+SRCS		=	main.c\
+				export.c\
+				unset.c\
+				echo.c\
+				env.c\
+				cd.c\
+				pwd.c\
+				exit.c\
 
 OBJS		= ${SRCS:.c=.o}
 NAME		= a.out
-CC			= cc -Wall -Wextra -Werror
+CC			= cc -g -Wall -Wextra -Werror
 
 INCLUDES = -I. -Ilibft
 

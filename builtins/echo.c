@@ -6,11 +6,11 @@
 /*   By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:51:06 by amben-ha          #+#    #+#             */
-/*   Updated: 2023/12/05 18:02:11 by amben-ha         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:58:48 by amben-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../builtins.h"
+# include "builtins.h"
 
 int check_n_flag(char *str)
 {
@@ -73,10 +73,3 @@ void	ft_echo(char **args)
 	return ;
 }
 
-int main (void)
-{
-	char *command[] = {"echo", "-n", "hello", "my", "world", NULL};
-
-	ft_echo(command);
-	return (0);
-}

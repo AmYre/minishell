@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_export.c                                     :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 19:13:29 by amben-ha          #+#    #+#             */
-/*   Updated: 2023/12/04 21:52:46 by amben-ha         ###   ########.fr       */
+/*   Created: 2023/12/05 19:50:53 by amben-ha          #+#    #+#             */
+/*   Updated: 2023/12/06 17:58:58 by amben-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../builtins.h"
+# include "builtins.h"
 
-//launch export function as many times as number of commands
-int main(int argc, char **argv, char **env)
+void	ft_cd(char **args)
 {
-	int i;
-	char **new_testenv;
+	char *path;
 
-	i = 0;
-	(void)argv;
-	(void)argc;
-	new_testenv = ft_export("lbarry=honey", env);
-	while (new_testenv[i])
+	if (args[1] == NULL)
 	{
-		printf("%s\n", new_testenv[i]);
-		free(new_testenv[i]);
-		i++;
+		path = getenv("HOME");
+		if (path == NULL)
+		{
+			printf("minish: cd: HOME not set\n");
+			return ;
+		}
 	}
-	free(new_testenv);
-	return (0);
+	else
+		path = args[1];
+	if (chdir(path) == -1)
+	{
+		printf("minish: cd: %s: No such file or directory\n", path);
+		return ;
+	}
 }
+
