@@ -6,7 +6,7 @@
 /*   By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 21:45:50 by amben-ha          #+#    #+#             */
-/*   Updated: 2023/12/06 17:58:55 by amben-ha         ###   ########.fr       */
+/*   Updated: 2023/12/07 23:27:32 by amben-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 void free_all(char *name, char *value, char *signed_name)
 {
-	free(name);
-	free(value);
-	free(signed_name);
+	if (name)
+		free(name);
+	if (value)
+		free(value);
+	if (signed_name)
+		free(signed_name);
 }
 
 int	is_export(char *str)
@@ -50,11 +53,11 @@ char *get_name(char *str)
 	i = 0;
 	j = 0;
 	if (str[0] == '=')
-		return (str);
+		return (ft_strdup(str));
 	while (str[i] != '=' && str[i])
 		i++;
 	if (str[i] != '=')
-		return (NULL);
+		return (ft_strdup(str));
 	if (str[i-1] == '+')
 		i--;
 	name = malloc(sizeof(char) * (i + 1));
@@ -72,13 +75,17 @@ char *get_value(char *str)
 	int i;
 	int j;
 	int sign;
+	int s_quote;
+	int d_quote;
 	char *value;
 
 	i = 0;
 	j = 0;
 	sign = 0;
+	s_quote = 0;
+	d_quote = 0;
 	if (str[0] == '=')
-		return (str);
+		return (ft_strdup(str));
 	while (str[i] != '=' && str[i])
 		i++;
 	if (str[i] == '=')
@@ -90,6 +97,8 @@ char *get_value(char *str)
 	j = 0;
 	while (str[i])
 	{
+		if (str[i] == '\"' || str[i] == '\'')
+			i++;
 		value[j] = str[i];
 		i++;
 		j++;
@@ -132,12 +141,9 @@ char **ft_export(char *command, char **env)
 	char	*value;
 	char	*signed_name;
 	char	**new_env;
-	char	*exec_env[2];
 
 	i = 0;
 	j = 0;
-	exec_env[0] = "env";
-	exec_env[1] = NULL;
 	if (!command)
 	{
 		while (env[i])
@@ -147,13 +153,14 @@ char **ft_export(char *command, char **env)
 		}
 		return (env);
 	}
+	value = NULL;
 	name = get_name(command);
 	if (!name)
 		return (env);
-	value = get_value(command);
-	if (!value)
-		value = "";
 	signed_name = ft_strjoin(name, "=");
+	if (ft_strlen(name) != ft_strlen(command) || ft_strlen(signed_name) != ft_strlen(command) + 1)
+		value = get_value(command);
+	printf("VALUE****: %s\n", value);
 	sign = ft_strchr_sign(command, '=');
 	found_match = check_match(signed_name, env);
 	if (found_match)
@@ -168,6 +175,8 @@ char **ft_export(char *command, char **env)
 			{
 				if (sign == 2)
 					new_env[i] = ft_strjoin(env[i], value);
+				else if (!sign)
+					new_env[i] = ft_strdup(env[i]);
 				else
 					new_env[i] = ft_strdup(command);
 			}
@@ -187,11 +196,14 @@ char **ft_export(char *command, char **env)
 		if (!found_match)
 		{
 			if (!sign)
-				new_env[i] = signed_name;
+				new_env[i] = ft_strdup(signed_name);
 			else if (sign == 2)
 				new_env[i] = ft_strjoin(signed_name, value);
 			else
-				new_env[i] = ft_strdup(command);
+			{
+				printf("export: '%s': not a valid identifier\n", value);
+				new_env[i] = ft_strjoin(signed_name, value);
+			}
 			new_env[i + 1] = NULL;
 		}
 		else

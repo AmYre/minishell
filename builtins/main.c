@@ -6,40 +6,39 @@
 /*   By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 20:29:38 by amben-ha          #+#    #+#             */
-/*   Updated: 2023/12/06 18:22:43 by amben-ha         ###   ########.fr       */
+/*   Updated: 2023/12/07 23:28:37 by amben-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	main(int argc, char **argv)
-{
-	(void)argc;
-	ft_exit(argv);
-
-	return (0);
-}
-
-// MAIN de EXPORT
-// int main(int argc, char **argv, char **env)
+// int	main(int argc, char **argv)
 // {
-// 	int i;
-// 	char **new_testenv;
-
-// 	i = 0;
-// 	(void)argv;
 // 	(void)argc;
-// 	new_testenv = ft_export("lbarry=honey", env);
-// 	while (new_testenv[i])
-// 	{
-// 		printf("%s\n", new_testenv[i]);
-// 		free(new_testenv[i]);
-// 		i++;
-// 	}
-// 	free(new_testenv);
+// 	ft_exit(argv);
+
 // 	return (0);
 // }
 
+//MAIN de EXPORT
+int main(int argc, char **argv, char **env)
+{
+	int i;
+	char **new_testenv;
+
+	i = 0;
+	(void)argv;
+	(void)argc;
+	new_testenv = ft_export("carson=aa\"    \' \"bb", env);
+	while (new_testenv[i])
+	{
+		printf("%s\n", new_testenv[i]);
+		free(new_testenv[i]);
+		i++;
+	}
+	free(new_testenv);
+	return (0);
+}
 
 // MAIN de UNSET
 // int main(int argc, char **argv, char **env)
