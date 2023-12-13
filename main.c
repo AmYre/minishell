@@ -6,7 +6,7 @@
 /*   By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:53:59 by amben-ha          #+#    #+#             */
-/*   Updated: 2023/12/05 16:47:57 by amben-ha         ###   ########.fr       */
+/*   Updated: 2023/12/08 19:14:46 by amben-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,3 +42,7 @@ int	main(void)
 	}
 	return (0);
 }
+
+//TO DO
+// try to exec a command coming from readline without the parsing
+// handle exits status, even when contro D/C is pressed

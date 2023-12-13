@@ -6,7 +6,7 @@
 /*   By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 19:19:21 by amben-ha          #+#    #+#             */
-/*   Updated: 2023/12/06 17:56:31 by amben-ha         ###   ########.fr       */
+/*   Updated: 2023/12/13 19:19:09 by amben-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,19 @@
 # include <string.h>
 # include <errno.h>
 
+typedef struct s_env
+{
+	char *key;
+	char *value;
+	struct s_env *next;
+} t_env;
+
+
 char	**ft_export(char *command, char **env);
 char	**ft_unset(char *name, char **env);
 void	ft_cd(char **args);
 void	ft_echo(char **args);
-void	ft_env(char **argv, char **env);
+void	ft_env(char **argv, t_env *env);
 void	ft_pwd(void);
 void	ft_exit(char **argv);
 

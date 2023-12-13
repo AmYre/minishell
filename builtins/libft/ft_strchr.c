@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 20:26:12 by amben-ha          #+#    #+#             */
-/*   Updated: 2023/12/13 19:21:57 by amben-ha         ###   ########.fr       */
+/*   Created: 2023/05/10 17:20:01 by amben-ha          #+#    #+#             */
+/*   Updated: 2023/05/15 21:05:51 by amben-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "builtins.h"
-
-void	ft_env(char **argv, t_env *env)
+char	*ft_strchr(const char *s, int c)
 {
-	t_env *current;
-	int i;
+	char	*str;
+	int		i;
 
+	str = (char *)s;
 	i = 0;
-	current = env;
-	if (argv[1])
+	if (!str[0] && !c)
+		return (&str[i]);
+	if (!*str)
+		return (0);
+	while (str[i] != (unsigned char)c)
 	{
-		printf("env: %s: No such file or directory\n", argv[1]);
-		return ;
+		if (str[i] == '\0' && c != '\0')
+			return (0);
+		i++;
 	}
-	while (current)
-	{
-		printf("%s=%s\n", current->key, current->value);
-		current = current->next;
-	}
+	return (&str[i]);
 }

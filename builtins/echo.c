@@ -6,7 +6,7 @@
 /*   By: amben-ha <amben-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:51:06 by amben-ha          #+#    #+#             */
-/*   Updated: 2023/12/06 17:58:48 by amben-ha         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:00:34 by amben-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int check_n_flag(char *str)
 		else
 		{
 			while (str[i] == 'n')
-			i++;
+				i++;
 		}
 		if (i == len)
-		return (1);
+			return (1);
 	}
 	return (0);
 }
